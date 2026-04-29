@@ -6,7 +6,9 @@ import "./globals.css";
 // import Header from "./Component/Header";
 // import Sidebar from "./Component/sidebar";
 // import Login from "./Component/Login";
-import ClientLayout from "./Component/ClientLayout";
+// import ClientLayout from "./Component/ClientLayout";
+import Header from "./Component/Header";
+import Sidebar from "./Component/sidebar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,11 +31,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="h-full antialiased">
-      <body className="flex flex-col h-full ">
-       <ClientLayout>
+
+
+    <html lang="en" className="h-full">
+      <body className="h-full">
         {children}
-       </ClientLayout>
       </body>
     </html>
   );

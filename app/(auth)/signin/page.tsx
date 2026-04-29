@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { Eye, EyeOff, Camera, User, Mail, Phone, Calendar, Lock } from 'lucide-react';
+import Link from 'next/link';
 
 const SignUpPage = () => {
   const [showPass, setShowPass] = useState(false);
@@ -115,9 +116,9 @@ const SignUpPage = () => {
               Register Account
             </button>
 
-            <p className="text-center text-sm text-gray-600 mt-4">
+            <Link href='/loginin' className="text-center text-sm text-gray-600 mt-4">
               Already have an account? <span className="text-blue-600 font-bold cursor-pointer hover:underline">Log in</span>
-            </p>
+            </Link>
           </form>
         </div>
       </div>

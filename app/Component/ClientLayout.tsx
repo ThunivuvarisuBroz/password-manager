@@ -2,7 +2,7 @@
 import { useState } from "react";
 import Header from "./Header";
 import Sidebar from "./sidebar";
-import Login from "./Login";
+// import Login from "./Login";
 
 export default function ClientLayout({
   children,
@@ -13,10 +13,7 @@ export default function ClientLayout({
 
   return (
     <>
-      <Header openpop={() => setPopup(true)} />
-
-      {popup && <Login closepop={() => setPopup(false)} />}
-
+      <Header />
       <div className="flex flex-1 overflow-hidden bg-white/40">
         <Sidebar />
         <main className="flex-1 overflow-y-auto p-6">{children}</main>

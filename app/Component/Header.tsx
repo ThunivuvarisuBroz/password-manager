@@ -1,17 +1,18 @@
 "use client";
 
 import React, { useState } from "react";
-import { UserCircle, LogIn } from "lucide-react";
+import { UserCircle, LogIn, Link2Off } from "lucide-react";
 import Image from "next/image";
 import logo from "../../public/assets/img/gitup.png";
-import Login from "./Login";
+// import Login from "./Login";
+import Link from "next/link";
 
-type loginp = {
-  openpop: () => void;
-};
+// type loginp = {
+//   openpop: () => void;
+// };
 
-const Header = ({ openpop }: loginp) => {
-  const [popup, setPopup] = useState(false);
+const Header = () => {
+  // const [popup, setPopup] = useState(false);
   return (
     <header className="flex items-center justify-between px-6 py-4 bg-white border-b border-gray-100 shadow-sm">
       <div className="flex items-center gap-2">
@@ -22,13 +23,12 @@ const Header = ({ openpop }: loginp) => {
       </div>
 
       <div className="flex items-center gap-4">
-        <button
-          onClick={openpop}
+        <Link href='/loginin'
           className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:text-indigo-600"
         >
           <LogIn size={18} />
           <span>Login</span>
-        </button>
+        </Link>
 
         <div className="w-px h-6 bg-gray-200" />
 
