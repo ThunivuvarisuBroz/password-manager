@@ -3,9 +3,35 @@
 import Link from "next/link";
 import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
+import { log } from "console";
 
 export default function LoginPage() {
     const [showpass, setShowpass] = useState(false);
+    const [loginData, setloginData] = useState({ 'email': '', 'password': '' })
+
+    function handleData(e: any) {
+        // e.preventDefault();
+        const { name, value } = e.target;
+
+        setloginData((pre) => ({ ...pre, [name]: value }));
+    }
+
+    async function submitData(e: any) {
+        e.preventDefault();
+        // console.log(loginData);
+
+        const loginApi = await fetch('api/login/', {
+            method: 'POST', headers: {
+                'Content-Type': 'Application/json'
+            },
+            body: JSON.stringify({ email: loginData.email, password: loginData.password })
+        })
+
+        const reposneApi = await loginApi.json();
+        console.log(reposneApi);
+        
+
+    }
 
     return (
         // Changed from fixed inset-0 to min-h-screen with flex centering
@@ -22,7 +48,7 @@ export default function LoginPage() {
                     </p>
                 </div>
 
-                <form className="space-y-5" onSubmit={(e) => e.preventDefault()}>
+                <form className="space-y-5" onSubmit={submitData}>
                     <div>
                         <label className="block text-sm font-medium text-gray-700 mb-1">
                             Email Address
@@ -30,6 +56,8 @@ export default function LoginPage() {
                         <input
                             type="email"
                             required
+                            name="email"
+                            onChange={handleData}
                             placeholder="name@company.com"
                             className="w-full p-2.5 border border-gray-300 rounded-md focus:ring-2 text-black focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
                         />
@@ -52,6 +80,8 @@ export default function LoginPage() {
                             <input
                                 type={showpass ? "text" : "password"}
                                 required
+                                name="password"
+                                onChange={handleData}
                                 placeholder="Enter Password"
                                 className="w-full p-2.5 border border-gray-300 rounded-md focus:ring-2 text-black focus:ring-blue-500 focus:border-blue-500 outline-none pr-10 transition-all"
                             />
@@ -97,7 +127,7 @@ export default function LoginPage() {
                 {/* Footer Link */}
                 <div className="mt-8 text-center border-t border-gray-100 pt-6">
                     <p className="text-sm text-gray-600">
-                        Don't have an account?{" "}
+                        Don't have an account?
                         <Link
                             href="/signin"
                             className="text-blue-600 font-bold hover:underline"
