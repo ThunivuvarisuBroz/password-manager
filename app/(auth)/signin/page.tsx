@@ -48,6 +48,10 @@ const SignUpPage = () => {
       console.log(response);
 
     }
+    else {
+      console.log('password Mismatch');
+
+    }
   }
 
 
