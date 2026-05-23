@@ -4,5 +4,4 @@ packages installed
 ---icons ----> npm i react-icons,npm install lucide-react
 ---next-auth ----> npm i next-auth
 
-
-
+---jwt web token ----> npm i jsonwebtoken
