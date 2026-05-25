@@ -1,12 +1,13 @@
 import React from 'react';
-import { Home, Settings, LayoutDashboard, Folder, Users } from 'lucide-react';
+import { Home, Settings, LayoutDashboard, Folder, Users,ClipboardList } from 'lucide-react';
 import Link from 'next/link';
-
+// import {  } from 'lucide-react';
 const Sidebar = () => {
     const navItems = [
         { name: 'Home', link: '/', icon: Home, active: true },
         { name: 'Projects', link: '/projects', icon: Folder, active: false },
         { name: 'Notice', link: '/notice', icon: Users, active: false },
+        { name: 'Task', link: '/task', icon: ClipboardList, active: false },
     ];
 
     return (

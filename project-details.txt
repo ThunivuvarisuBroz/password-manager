@@ -5,3 +5,7 @@ packages installed
 ---next-auth ----> npm i next-auth
 
 ---jwt web token ----> npm i jsonwebtoken
+
+---- for hash passwod generator -----> npm i bcryptjs
+
+------ alert using react-hot-toast -----> npm i react-hot-toast

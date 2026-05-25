@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { db } from '@/lib/config'
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
+import jwt from 'jsonwebtoken';
 
 
 
@@ -14,28 +15,46 @@ export async function POST(req: any) {
         if (loginEmail && loginPassword) {
             const [row]: any = await db.query('select * from login_details where email=?', [loginEmail]);
 
-            if (row || row.length === 0) {
-                console.log('invalid email');
+            if (row.length === 0) {
+                return NextResponse.json({
+                    status: 420,
+                    message: 'Invaild Email '
+                })
 
             }
-            console.log(row[0].password);
-            console.log('email');
+            // console.log(row[0].password);
+            // console.log('email');
 
-            console.log(row[0].email);
+            // console.log(row[0].email);
 
 
             const com_password = await bcrypt.compare(loginPassword, row[0].password);
+            console.log(com_password);
+
 
             if (com_password) {
-                console.log('ture');
+                // console.log('ture');
+
+                const token: string = jwt.sign(
+                    {
+                        id: row[0].id,
+                        role: row[0].role_type
+                    },
+                    process.env.SCEART_KEY as string,
+                    {
+                        expiresIn: '7d'
+                    }
+                )
+
                 return NextResponse.json({
                     status: 200,
-                    message: 'login success'
+                    message: 'login success',
+                    token: token
                 })
 
             }
             else {
-                console.log('fasle');
+                // console.log('fasle');
                 return NextResponse.json({
                     status: 420,
                     message: 'Invaild Password '

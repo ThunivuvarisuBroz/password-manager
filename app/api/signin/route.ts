@@ -1,6 +1,6 @@
 import { db } from "@/lib/config";
 import { NextResponse } from "next/server";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import fs from 'fs'
 import path from 'path'
 import { ResultSetHeader } from "mysql2";
@@ -31,48 +31,53 @@ export async function POST(req: any) {
         const passWord = await bcrypt.hash(password, 10);
         console.log(passWord);
 
+        let ImageName: string = '';
 
         if (profile && profile.size > 0) {
             const binaryDate = await profile.arrayBuffer();
             const bufferData = Buffer.from(binaryDate);
-            const ImageName = Date.now() + profile.name;
+            ImageName = Date.now() + profile.name;
 
             const saveImage = path.join(process.cwd(), 'public/assets/uploads', ImageName);
             fs.writeFileSync(saveImage, bufferData);
-
-            const [signinData] = await db.query<ResultSetHeader>(`insert into register_details (fullname,email,phone,dob,profile) values(?,?,?,?,?)`, [fname, email, phone, dob, ImageName]);
-            const signLastid = signinData.insertId;
-
-            if (signinData) {
-                const loginType = 'Register';
-                const [loginData] = await db.query(`insert into login_details(email,password,user_id,login_type)
-                    values(?,?,?,?)`, [
-                    email, passWord, signLastid, loginType
-                ]);
-
-                if (loginData) {
-                    return NextResponse.json({
-                        'status': 200,
-                        'message': 'User Registrtion completed'
-                    })
-                }
-
-            }
-            return NextResponse.json({
-                'status': 420,
-                'message': 'something went wrong'
-            })
+        }
+        else {
+            ImageName = '';
         }
 
+        const [signinData] = await db.query<ResultSetHeader>(`insert into register_details (fullname,email,phone,dob,profile) values(?,?,?,?,?)`, [fname, email, phone, dob, ImageName]);
+        const signLastid = signinData.insertId;
+
+        if (signinData) {
+            const loginType = 'Register';
+            const [loginData] = await db.query(`insert into login_details(email,password,user_id,login_type)
+                    values(?,?,?,?)`, [
+                email, passWord, signLastid, loginType
+            ]);
+
+            if (loginData) {
+                return NextResponse.json({
+                    'status': 200,
+                    'message': 'User Registrtion completed'
+                })
+            }
+
+        }
+        return NextResponse.json({
+            'status': 420,
+            'message': 'something went wrong'
+        })
     }
 
-    // console.log(checkData);
-
-
-    // return NextResponse.json({
-    //     'status': 200,
-    //     'message': 'success'
-    // })
-
-
 }
+
+// console.log(checkData);
+
+
+// return NextResponse.json({
+//     'status': 200,
+//     'message': 'success'
+// })
+
+
+// }

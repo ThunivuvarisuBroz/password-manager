@@ -3,14 +3,14 @@
 import Link from "next/link";
 import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
-import { log } from "console";
+// import { log } from "console";
 import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
     const [showpass, setShowpass] = useState(false);
     const [loginData, setloginData] = useState({ 'email': '', 'password': '' })
 
-    const router=useRouter();
+    const router = useRouter();
 
     function handleData(e: any) {
         // e.preventDefault();
@@ -32,12 +32,13 @@ export default function LoginPage() {
 
         const reposneApi = await loginApi.json();
 
-        if(reposneApi.status===200){
+        if (reposneApi.status === 200) {
+            localStorage.setItem('token', reposneApi.token);
             router.push('/')
         }
 
         console.log(reposneApi);
-        
+
 
     }
 

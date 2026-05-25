@@ -1,3 +1,11 @@
-export default function Home() {
-  return <h1>Home Page 🚀</h1>;
+import React from 'react'
+
+function page() {
+  return (
+    <div className='text-black'>
+      Home
+    </div>
+  )
 }
+
+export default page
