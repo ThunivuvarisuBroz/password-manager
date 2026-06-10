@@ -4,13 +4,9 @@ import React, { useEffect, useState } from "react";
 import { UserCircle, LogIn, LogOut, Link2Off } from "lucide-react";
 import Image from "next/image";
 import logo from "../../public/assets/img/gitup.png";
-// import Login from "./Login";
-// import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-// type loginp = {
-//   openpop: () => void;
-// };
+
 
 const Header = () => {
   // const [popup, setPopup] = useState(false);
@@ -52,7 +48,7 @@ const Header = () => {
       <div className="flex items-center gap-4">
         < p
           onClick={() => { loginText ? logout() : login() }}
-          className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:text-indigo-600"
+          className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 cursor-pointer transition-colors hover:text-indigo-600"
         >
 
           {

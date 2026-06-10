@@ -6,8 +6,6 @@ import { Checklogin } from "@/lib/Checklogin";
 export default function Home() {
   const [task, setTask] = useState({ title: "", start: "", days: "" });
   const [getTask, setGetTask] = useState<any[]>([]);
-
-  // Track the ID of the most recently added task to target it for animation
   const [newestTaskId, setNewestTaskId] = useState<any>(null);
 
   useEffect(() => {
@@ -77,20 +75,13 @@ export default function Home() {
       const responseApi = await PostApi.json();
       console.log(responseApi);
 
-      // CRITICAL FIX: Re-fetch data or optimistically add the item to update the UI
-      // To show the animation, we track the new item's unique identifier:
       if (responseApi && responseApi.id) {
         setNewestTaskId(responseApi.id);
       } else {
-        // Fallback marker if API does not return the created record ID directly
         setNewestTaskId("latest");
       }
 
-      // Refresh list to pull the new element down
       await getData();
-
-      // Reset the animation anchor after transition duration finishes
-      // setTimeout(() => setNewestTaskId(null), 10000);
     } else {
       alert("loggin 1st");
     }
@@ -237,11 +228,9 @@ export default function Home() {
           <tbody className="divide-y divide-gray-200 text-center capitalize">
             {getTask &&
               getTask.map((item, index) => {
-                // Determine if this specific item is the one that was just added
                 const isNew =
                   item.id === newestTaskId ||
                   (index === getTask.length - 1 && newestTaskId === "latest");
-
                 return (
                   <tr
                     key={item.id || index}
@@ -252,7 +241,7 @@ export default function Home() {
                     <td className="whitespace-nowrap px-6 py-4 font-medium text-gray-900">
                       {index + 1}
                     </td>
-                    <td className="px-6 py-4 text-gray-700 font-medium break-words max-w-0">
+                    <td className="px-6 py-4 text-gray-700 font-medium  max-w-0">
                       {item.task_titile}
                     </td>
                     <td className="whitespace-nowrap px-6 py-4 text-right pr-10">
