@@ -1,4 +1,4 @@
-import { AuthHeader } from "@/lib/authencation";
+import { AuthHeader,JwtUser  } from "@/lib/authencation";
 import { NextResponse } from "next/server";
 import { db } from "@/lib/config";
 
@@ -6,13 +6,13 @@ export async function POST(req: any) {
   const jwt_token = AuthHeader(req);
   // console.log(jwt_token);
 
-  if (!jwt_token) {
+  if (!jwt_token || !jwt_token.status) {
     return NextResponse.json({
       status: false,
       message: "Invalid token",
     });
   } else {
-    const token_id = jwt_token.token_msg.id;
+    const token_id = (jwt_token.token_msg as JwtUser).id;
     // let token_role = jwt_token.role
 
     const body = await req.json();
@@ -41,13 +41,13 @@ export async function POST(req: any) {
 
 export async function GET(req: any) {
   const verify = AuthHeader(req);
-  if (!verify) {
+  if (!verify || !verify.status) {
     return NextResponse.json({
       status: false,
       message: "Token Expired",
     });
   } else {
-    const token_id = verify.token_msg.id;
+    const token_id = (verify.token_msg as JwtUser).id;
     const [getSql]: any = await db.query(
       "select * from task_details where user_id=?",
       [token_id],
