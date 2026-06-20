@@ -1,64 +1,67 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import { UserCircle, LogIn, LogOut, Link2Off } from "lucide-react";
+import React, { useContext } from "react";
+import { UserCircle, LogIn, LogOut } from "lucide-react";
 import Image from "next/image";
 import logo from "../../public/assets/img/gitup.png";
 import { useRouter } from "next/navigation";
-
-
+import { AuthTokenHeader } from "./AuthToken";
 
 const Header = () => {
-  // const [popup, setPopup] = useState(false);
-  const [loginText, setloginText] = useState(false);
-  const naviagte = useRouter();
-  function getData() {
-    return localStorage.getItem('token');
-  }
-  // const jwt_verify: string = '';
-  useEffect(() => {
-    const jwt_verify = getData()
+  const navigate = useRouter();
 
-    setloginText(!!jwt_verify)
+  const auth = useContext(AuthTokenHeader);
 
-    console.log(loginText ? 'logout' : 'login');
+  if (!auth) return null;
 
-  }, [])
+  const [token, setToken] = auth;
 
   function logout() {
-    localStorage.removeItem('token')
-    console.log('logout');
-    setloginText(!loginText)
-
+    localStorage.removeItem("token");
+    setToken(null);
+    console.log("logout");
   }
-  function login() {
 
-    naviagte.push('/loginin')
+  function login() {
+    navigate.push("/loginin");
   }
 
   return (
     <header className="flex items-center justify-between px-6 py-4 bg-white border-b border-gray-100 shadow-sm">
       <div className="flex items-center gap-2">
         <Image src={logo} width={30} height={30} alt="logo" />
+
         <span className="text-xl font-bold tracking-tight text-gray-900">
           Work <span className="text-indigo-600">flow</span>
         </span>
       </div>
 
       <div className="flex items-center gap-4">
-        < p
-          onClick={() => { loginText ? logout() : login() }}
+        <p
+          onClick={() => {
+            token ? logout() : login();
+          }}
           className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 cursor-pointer transition-colors hover:text-indigo-600"
         >
-
-          {
-            loginText ? (<span className="flex justify-center items-center text-red-600"><LogOut size={18} /> Logout</span>) : (<span className="flex justify-center items-center gap-2 text-indigo-600"><LogIn size={18} /> Login</span>)
-          }
+          {token ? (
+            <span className="flex justify-center items-center text-red-600 gap-2">
+              <LogOut size={18} />
+              Logout
+            </span>
+          ) : (
+            <span className="flex justify-center items-center gap-2 text-indigo-600">
+              <LogIn size={18} />
+              Login
+            </span>
+          )}
         </p>
 
         <div className="w-px h-6 bg-gray-200" />
 
-        <button className="flex items-center justify-center transition-transform hover:scale-105" onClick={() => { naviagte.push('/profile') }}>
+        <button
+          className="flex items-center justify-center transition-transform hover:scale-105"
+          onClick={() => navigate.push("/profile")}
+        >
           <div className="p-1 border-2 border-transparent rounded-full hover:border-indigo-100">
             <UserCircle
               size={32}
@@ -68,7 +71,7 @@ const Header = () => {
           </div>
         </button>
       </div>
-    </header >
+    </header>
   );
 };
 

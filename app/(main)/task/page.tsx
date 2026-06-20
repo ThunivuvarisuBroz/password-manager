@@ -73,7 +73,7 @@ export default function Home() {
       });
 
       const responseApi = await PostApi.json();
-      console.log(responseApi);
+      // console.log(responseApi);
 
       if (responseApi && responseApi.id) {
         setNewestTaskId(responseApi.id);
@@ -242,7 +242,7 @@ export default function Home() {
                       {index + 1}
                     </td>
                     <td className="px-6 py-4 text-gray-700 font-medium  max-w-0">
-                      {item.task_titile}
+                      {item.task_title}
                     </td>
                     <td className="whitespace-nowrap px-6 py-4 text-right pr-10">
                       <button

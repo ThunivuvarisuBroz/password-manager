@@ -27,9 +27,9 @@ export default function NoticePage() {
     }));
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+ async function handleSubmit(e: FormEvent<HTMLFormElement>){
     e.preventDefault();
-    console.log("Notice Data Submitted:", formData);
+    // const noticeApi =  await fetch('api/noticebd/') 
   };
 
   return (
@@ -42,7 +42,7 @@ export default function NoticePage() {
       </div>
 
       <div className="bg-white border border-slate-200 rounded-2xl shadow-sm p-6 sm:p-8">
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-6 text-[#58595b]">
           <div>
             <label
               htmlFor="title"
@@ -125,7 +125,7 @@ export default function NoticePage() {
               id="shortDescription"
               name="shortDescription"
               rows={4}
-              maxLength={200}
+              maxLength={150}
               required
               value={formData.shortDescription}
               onChange={handleChange}
@@ -137,7 +137,7 @@ export default function NoticePage() {
                 Keep it clear and actionable.
               </span>
               <span className="text-xs text-slate-400 font-medium">
-                {formData.shortDescription.length} / 200 characters
+                {formData.shortDescription.length} / 150 characters
               </span>
             </div>
           </div>

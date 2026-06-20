@@ -4,7 +4,9 @@ import { db } from "@/lib/config";
 
 export async function POST(req: any) {
   const jwt_token = AuthHeader(req);
-  // console.log(jwt_token);
+  console.log('tioken::');
+  
+  console.log(jwt_token);
 
   if (!jwt_token || !jwt_token.status) {
     return NextResponse.json({
@@ -21,7 +23,7 @@ export async function POST(req: any) {
     const task_days = body.days;
 
     let [insert_task]: any = await db.query(
-      `insert into task_details(task_titile,task_start_date,task_day,user_id)values(?,?,?,?)`,
+      `insert into task_details(task_title,task_start_date,task_day,user_id)values(?,?,?,?)`,
       [title, s_Date, task_days, token_id],
     );
 
@@ -53,7 +55,7 @@ export async function GET(req: any) {
       [token_id],
     );
 
-    console.log(getSql);
+    // console.log(getSql);
     if (getSql) {
       return NextResponse.json({
         status: true,

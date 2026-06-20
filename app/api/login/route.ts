@@ -19,7 +19,7 @@ export async function POST(req: any) {
       if (row.length === 0) {
         return NextResponse.json({
           status: 420,
-          message: "Invaild Email ",
+          message: "Invaild Email and Password",
         });
       }
       // console.log(row[0].password);
@@ -40,7 +40,7 @@ export async function POST(req: any) {
           },
           process.env.SCEART_KEY as string,
           {
-            expiresIn: "7d",
+            expiresIn: "1m",
           },
         );
 
@@ -53,7 +53,7 @@ export async function POST(req: any) {
         // console.log('fasle');
         return NextResponse.json({
           status: 420,
-          message: "Invaild Password ",
+          message: "Invaild Email and Password",
         });
       }
     }
