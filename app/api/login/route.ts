@@ -40,7 +40,7 @@ export async function POST(req: any) {
           },
           process.env.SCEART_KEY as string,
           {
-            expiresIn: "1m",
+            expiresIn: "7d",
           },
         );
 

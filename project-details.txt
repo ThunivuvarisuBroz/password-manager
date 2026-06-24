@@ -12,3 +12,9 @@ packages installed
 
 
 ------- for image saving in vercel blob --------> npm install @vercel/blob
+
+
+
+remainder sql
+
+CREATE TABLE remainder(id int PRIMARY KEY AUTO_INCREMENT,r_title varchar(50),r_date date,r_hour int,r_minutes int,r_period varchar(10),is_rang int,user_id int,created_date timestamp DEFAULT CURRENT_TIMESTAMP,updated_date timestamp DEFAULT CURRENT_TIMESTAMP on UPDATE CURRENT_TIMESTAMP,status varchar(1) DEFAULT 'Y', FOREIGN KEY (user_id) REFERENCES login_details(id));
