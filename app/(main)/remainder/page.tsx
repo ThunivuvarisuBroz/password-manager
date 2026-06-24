@@ -35,22 +35,22 @@ export default function ReminderForm() {
   const hours = Array.from({ length: 12 }, (_, i) => String(i === 0 ? 12 : i).padStart(2, '0'));
   const minutes = Array.from({ length: 12 }, (_, i) => String(i * 5).padStart(2, '0'));
 
-  async function enableNotification() {
-    alert('ok')
-  const permission = await Notification.requestPermission();
+//   async function enableNotification() {
+//     alert('ok')
+//   const permission = await Notification.requestPermission();
 
-  if (permission === "granted") {
-    console.log("Permission granted");
-  }
-}
+//   if (permission === "granted") {
+//     console.log("Permission granted");
+//   }
+// }
 
   return (
     <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4 selection:bg-indigo-500 selection:text-white">
       {/* Card Container with Light Glassmorphism */}
       <div className="w-full max-w-md bg-white/70 backdrop-blur-md border border-slate-200/80 rounded-2xl p-6 shadow-xl shadow-slate-200/50">
-         <button onClick={enableNotification}>
+         {/* <button onClick={enableNotification}>
   Enable Notifications
-</button>
+</button> */}
         {/* Header */}
         <div className="flex items-center gap-3 mb-6">
           <div className="p-2.5 bg-indigo-50 rounded-xl text-indigo-600 border border-indigo-100">
