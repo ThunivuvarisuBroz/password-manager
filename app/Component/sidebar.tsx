@@ -6,7 +6,7 @@ import { useParams, usePathname, useSearchParams } from 'next/navigation';
 const Sidebar = () => {
     const navItems = [
         { name: 'Home', link: '/', icon: Home, active: false },
-        { name: 'Projects', link: '/projects', icon: Folder, active: false },
+        { name: 'Remainder', link: '/remainder', icon: Folder, active: false },
         { name: 'Notice', link: '/notice', icon: Users, active: false },
         { name: 'Task', link: '/task', icon: ClipboardList, active: false },
     ];

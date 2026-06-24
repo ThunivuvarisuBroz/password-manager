@@ -9,3 +9,6 @@ packages installed
 ---- for hash passwod generator -----> npm i bcryptjs
 
 ------ alert using react-hot-toast -----> npm i react-hot-toast
+
+
+------- for image saving in vercel blob --------> npm install @vercel/blob

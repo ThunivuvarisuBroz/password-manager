@@ -4,6 +4,7 @@ import bcrypt from "bcryptjs";
 import fs from 'fs'
 import path from 'path'
 import { ResultSetHeader } from "mysql2";
+import { put } from "@vercel/blob";
 
 export async function POST(req: any) {
     const body = await req.formData();
@@ -32,14 +33,28 @@ export async function POST(req: any) {
         console.log(passWord);
 
         let ImageName: string = '';
+        const blob = await put(profile.name, profile, {
+            access: "public",
+        });
 
+        // if (profile && profile.size > 0) {
+        //     const binaryDate = await profile.arrayBuffer();
+        //     const bufferData = Buffer.from(binaryDate);
+        //     ImageName = Date.now() + profile.name;
+
+        //     const saveImage = path.join(process.cwd(), 'public/assets/uploads', ImageName);
+        //     fs.writeFileSync(saveImage, bufferData);
+        // }
         if (profile && profile.size > 0) {
-            const binaryDate = await profile.arrayBuffer();
-            const bufferData = Buffer.from(binaryDate);
-            ImageName = Date.now() + profile.name;
+            const blob = await put(
+                `${Date.now()}-${profile.name}`,
+                profile,
+                {
+                    access: "public",
+                }
+            );
 
-            const saveImage = path.join(process.cwd(), 'public/assets/uploads', ImageName);
-            fs.writeFileSync(saveImage, bufferData);
+            ImageName = blob.url;
         }
         else {
             ImageName = '';

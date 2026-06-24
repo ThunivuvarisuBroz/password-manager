@@ -5,6 +5,7 @@ import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
 // import { log } from "console";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 export default function LoginPage() {
     const [showpass, setShowpass] = useState(false);
@@ -33,11 +34,16 @@ export default function LoginPage() {
         const reposneApi = await loginApi.json();
 
         if (reposneApi.status === 200) {
+            toast.success(reposneApi.message)
             localStorage.setItem('token', reposneApi.token);
             router.push('/')
         }
+        else{
+                        toast.error(reposneApi.message)
 
-        console.log(reposneApi);
+        }
+
+        // console.log(reposneApi);
 
 
     }

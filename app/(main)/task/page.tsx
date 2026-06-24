@@ -77,10 +77,21 @@ export default function Home() {
 
       if (responseApi && responseApi.id) {
         setNewestTaskId(responseApi.id);
-      } else {
+
+
+
+        setTimeout(() => {
+          getData();
+        }, 100);
+      }
+      else {
         setNewestTaskId("latest");
       }
-
+      setTask({
+        title: "",
+        start: "",
+        days: "",
+      });
       await getData();
     } else {
       alert("loggin 1st");
@@ -93,7 +104,7 @@ export default function Home() {
 
   return (
     <div>
-      {}
+      { }
       <style jsx global>{`
         @keyframes fadeInRow {
           0% {
@@ -134,6 +145,7 @@ export default function Home() {
               id="taskName"
               type="text"
               name="title"
+              value={task.title}
               placeholder="e.g., Update Landing Page UI"
               className="w-full bg-indigo-600/50 border border-white rounded-lg px-3 py-2 text-sm text-slate-200 placeholder-slate-400 focus:outline-none transition-colors"
               onChange={handleChange}
@@ -152,6 +164,7 @@ export default function Home() {
                 id="startDate"
                 type="date"
                 name="start"
+                value={task.start}
                 className="w-full bg-indigo-600/50 border border-white rounded-lg px-3 py-2 text-sm text-slate-200 focus:outline-none transition-colors"
                 onChange={handleChange}
               />
@@ -169,6 +182,7 @@ export default function Home() {
                 type="number"
                 min="1"
                 name="days"
+                value={task.days}
                 placeholder="e.g., 5"
                 className="w-full bg-indigo-600/50 border border-white rounded-lg px-3 py-2 text-sm text-slate-200 placeholder-slate-400 focus:outline-none transition-colors"
                 onChange={handleChange}
@@ -234,9 +248,8 @@ export default function Home() {
                 return (
                   <tr
                     key={item.id || index}
-                    className={`hover:bg-gray-50/70 transition-colors duration-150 ${
-                      isNew ? "animate-row-fade" : ""
-                    }`}
+                    className={`hover:bg-gray-50/70 transition-colors duration-150 ${isNew ? "animate-row-fade" : ""
+                      }`}
                   >
                     <td className="whitespace-nowrap px-6 py-4 font-medium text-gray-900">
                       {index + 1}
